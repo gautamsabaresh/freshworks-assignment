@@ -1,14 +1,8 @@
-# This is a sample Python script.
-
-# Press Shift+F1    0 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
 import json
 import os
 from threading import Timer
-import threading
 
-d = {}
+
 datastore_dir_path = os.path.dirname(os.path.realpath(__file__))+"\\datastore.json"
 
 
@@ -19,6 +13,7 @@ def empty_json_file():
 
 
 def create(key, value, timeout=0):
+    d = {}
     if os.path.exists(datastore_dir_path):
         with open(datastore_dir_path, 'r+') as json_file:
             file_content = json_file.read()
@@ -49,6 +44,7 @@ def create(key, value, timeout=0):
                         data.update(d)
                         json_file.seek(0)
                         json.dump(data, json_file, indent=4, sort_keys=True)
+                        return True
             else:
                 print("error: Memory limit exceeded!! ")
                 return False
@@ -82,5 +78,3 @@ def delete(userkey):
         else:
             print("Error: given key is not in the data store")
             return False
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
